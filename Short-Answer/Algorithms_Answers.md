@@ -8,7 +8,7 @@ Another way to think about this problem is that it takes n additions of n*n to r
 
 Inside the while loop, nothing else is being done other than determine the stopping condition, which involves constant time operations.
 
-Therefore the runtime as a whole is O(1).
+Therefore the runtime as a whole is O(n).
 
 b)
 
