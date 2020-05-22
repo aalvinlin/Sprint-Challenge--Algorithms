@@ -92,6 +92,38 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+
+    def move_left_and_report(self):        
+        current_position = self._position
+        self.move_left()
+        print("moved left from", current_position, "to", self._position)
+
+    def move_right_and_report(self):        
+        current_position = self._position
+        self.move_right()
+        print("moved right from", current_position, "to", self._position)
+
+    def compare_item_and_report(self):
+        
+        print("comparing held", self._item, "to", self._list[self._position])
+        result = self.compare_item()
+        
+        status = "equal"
+        if result == 1:
+            status = "greater"
+        elif result == -1:
+            status = "smaller"
+
+        print("result: held item is", status, "(", result, ")")
+
+        return result
+
+    def swap_item_and_report(self):
+
+        print("about to swap held", self._item, "with", self._list[self._position])
+        self.swap_item()
+        print("now holding", self._item, "with", self._list[self._position], "at position", self._position)
+        
     def sort(self):
         """
         Sort the robot's list.
@@ -101,23 +133,23 @@ class SortingRobot:
 
         # continue moving to the right until it reaches the end
         while self.can_move_right():
-            self.move_right()
+            self.move_right_and_report()
 
             # if the current item is less than the item in hand, swap the two
-            if self.compare_item() >= 0:
+            if self.compare_item_and_report() >= 0:
                 self.swap_item()
 
         # head back to the start position
         while self.can_move_left():
-            self.move_left()
+            self.move_left_and_report()
 
         # insert the item in hand in the right spot
-        while self.can_move_right() and self.compare_item() < 0:
-            self.move_right()
+        while self.can_move_right_and_report() and self.compare_item_and_report() < 0:
+            self.move_right_and_report()
         
         # move to the right once more and then insert the item in hand in its correct place
-        self.move_right()
-        self.swap()
+        self.move_right_and_report()
+        self.swap_item()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
