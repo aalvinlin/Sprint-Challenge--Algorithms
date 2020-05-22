@@ -2,7 +2,13 @@
 
 ## Exercise I
 
-a) The while condition is written to stop when n is n^3, but a is being increased by a sum of n^2 every loop. In order to determine the ratio of how much faster n is increasing, 
+a) The while condition is written to stop when n is n^3, but a is being increased by a sum of n^2 every loop. In order to determine how quickly the while loop stops, taking the limit of n^3/(a + n^2) as n goes to infinity gives n, because the highest degrees of the polynomial dominates and simplifies the expression to n^3/n^2, or n. Thus the while loop will run n times.
+
+Another way to think about this problem is that it takes n additions of n*n to reach n^3. In other words, multiplication is repeated addition. n^2 + n^2 + n^2 + ... + n^2 equals n^3 if there are n terms. Again the while loop will run n times.
+
+Inside the while loop, nothing else is being done other than determine the stopping condition, which involves constant time operations.
+
+Therefore the runtime as a whole is O(1).
 
 b)
 
