@@ -123,7 +123,16 @@ class SortingRobot:
         print("about to swap held", self._item, "with", self._list[self._position])
         self.swap_item()
         print("now holding", self._item, "with", self._list[self._position], "at position", self._position)
-        
+    
+    def diagnose(self):
+        print("============================")
+        print("DIAGNOSIS:")
+        print("  position is", self._position)
+        print("  held item is", self._item)
+        print("  light is", self._light)
+        print("  time is", self._time)
+        print("============================")
+
     def sort(self):
         """
         Sort the robot's list.
@@ -144,12 +153,14 @@ class SortingRobot:
             self.move_left_and_report()
 
         # insert the item in hand in the right spot
-        while self.can_move_right_and_report() and self.compare_item_and_report() < 0:
+        while self.move_right_and_report() and self.compare_item_and_report() < 0:
             self.move_right_and_report()
         
         # move to the right once more and then insert the item in hand in its correct place
         self.move_right_and_report()
         self.swap_item()
+
+        self.diagnose()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
