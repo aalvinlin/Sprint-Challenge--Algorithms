@@ -96,16 +96,16 @@ class SortingRobot:
     def move_left_and_report(self):        
         current_position = self._position
         self.move_left()
-        print("moved left from position", current_position, "to", self._position)
+        print(f"moved left from position {current_position} to{self._position}")
 
     def move_right_and_report(self):        
         current_position = self._position
         self.move_right()
-        print("moved right from position", current_position, "to", self._position)
+        print(f"moved right from position {current_position} to{self._position}")
 
     def compare_item_and_report(self):
         
-        print("comparing #", self._item, "to #", self._list[self._position])
+        print(f"comparing #{self._item} to #{self._list[self._position]}")
         result = self.compare_item()
         
         status = "equal"
@@ -114,15 +114,15 @@ class SortingRobot:
         elif result == -1:
             status = "smaller"
 
-        print("result: held item is #", status, "(", result, ")")
+        print(f"result: held item is #{status} ({result})")
 
         return result
 
     def swap_item_and_report(self):
 
-        print("about to swap held #", self._item, "with #", self._list[self._position])
+        print(f"about to swap held #{self._item} with #{self._list[self._position]}")
         self.swap_item()
-        print("now holding #", self._item, "with #", self._list[self._position], "at position", self._position)
+        print(f"now holding #{self._item} with #{self._list[self._position]} at position {self._position}")
     
     def diagnose(self):
         print("============================")
