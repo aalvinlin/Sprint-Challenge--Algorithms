@@ -114,7 +114,7 @@ class SortingRobot:
         elif result == -1:
             status = "smaller"
 
-        print(f"result: held item is #{status} ({result})")
+        print(f"result: held item is {status} ({result})")
 
         return result
 
@@ -144,31 +144,49 @@ class SortingRobot:
         # pick up the first item
         self.swap_item()
 
-        # continue moving to the right until it reaches the end
-        while self.can_move_right():
-            self.move_right_and_report()
 
-            # if the current item is less than the item in hand, swap the two
-            if self.compare_item_and_report() >= 0:
-                self.swap_item()
+        # keep moving until the empty spot is at the far right of the list during the insertion phase
+        while True:
 
-        self.diagnose()
+            self.diagnose()
 
-        # head back to the start position
-        while self.can_move_left():
-            self.move_left_and_report()
+            # continue moving to the right until it reaches the end
+            while self.can_move_right():
+                self.move_right_and_report()
 
-        # insert the item in hand in the right spot
-        while self.move_right_and_report() and self.compare_item_and_report() < 0:
-            self.move_right_and_report()
-        
-        self.diagnose()
+                # if the current item is less than the item in hand, swap the two
+                if self.compare_item_and_report() is not None and self.compare_item_and_report() >= 0:
+                    self.swap_item()
 
-        # move to the right once more and then insert the item in hand in its correct place
-        self.move_right_and_report()
-        self.swap_item()
+            self.diagnose()
 
-        self.diagnose()
+            # head back to the start position
+            while self.can_move_left():
+                self.move_left_and_report()
+
+            # insert the item in hand in the correct spot (it will be empty)
+            while self.can_move_right() and self.compare_item_and_report() is not None:
+
+                # if the curent spot is not empty, keep moving to the right:
+                self.move_right_and_report()
+            
+            # robot should now be in front of a blank spot, or the end
+            self.diagnose()
+
+            # insert the item in the correct spot. Repeat with the next item
+            self.swap_item()
+
+            self.diagnose()
+
+            # if the following three criteria are true, stop the routine because the list is sorted:
+            # 1. the robot is at the very end of the list
+            # 2. the empty spot is also at the same spot
+            # 3. the robot is during the insertion phase
+            if not self.can_move_right() and self.compare_item_and_report is None:
+                break
+            
+            # display sorted list
+            self.diagnose()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
