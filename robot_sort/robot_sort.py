@@ -96,16 +96,16 @@ class SortingRobot:
     def move_left_and_report(self):        
         current_position = self._position
         self.move_left()
-        print("moved left from", current_position, "to", self._position)
+        print("moved left from position", current_position, "to", self._position)
 
     def move_right_and_report(self):        
         current_position = self._position
         self.move_right()
-        print("moved right from", current_position, "to", self._position)
+        print("moved right from position", current_position, "to", self._position)
 
     def compare_item_and_report(self):
         
-        print("comparing held", self._item, "to", self._list[self._position])
+        print("comparing #", self._item, "to #", self._list[self._position])
         result = self.compare_item()
         
         status = "equal"
@@ -114,15 +114,15 @@ class SortingRobot:
         elif result == -1:
             status = "smaller"
 
-        print("result: held item is", status, "(", result, ")")
+        print("result: held item is #", status, "(", result, ")")
 
         return result
 
     def swap_item_and_report(self):
 
-        print("about to swap held", self._item, "with", self._list[self._position])
+        print("about to swap held #", self._item, "with #", self._list[self._position])
         self.swap_item()
-        print("now holding", self._item, "with", self._list[self._position], "at position", self._position)
+        print("now holding #", self._item, "with #", self._list[self._position], "at position", self._position)
     
     def diagnose(self):
         print("============================")
@@ -131,12 +131,16 @@ class SortingRobot:
         print("  held item is", self._item)
         print("  light is", self._light)
         print("  time is", self._time)
+        print("  list is", self._list)
         print("============================")
 
     def sort(self):
         """
         Sort the robot's list.
         """
+
+        self.diagnose()
+
         # pick up the first item
         self.swap_item()
 
@@ -148,6 +152,8 @@ class SortingRobot:
             if self.compare_item_and_report() >= 0:
                 self.swap_item()
 
+        self.diagnose()
+
         # head back to the start position
         while self.can_move_left():
             self.move_left_and_report()
@@ -156,6 +162,8 @@ class SortingRobot:
         while self.move_right_and_report() and self.compare_item_and_report() < 0:
             self.move_right_and_report()
         
+        self.diagnose()
+
         # move to the right once more and then insert the item in hand in its correct place
         self.move_right_and_report()
         self.swap_item()
