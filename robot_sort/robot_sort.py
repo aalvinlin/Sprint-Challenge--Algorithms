@@ -139,16 +139,13 @@ class SortingRobot:
         Sort the robot's list.
         """
 
-        self.diagnose()
-
-        # pick up the first item
-        self.swap_item()
-
-
         # keep moving until the empty spot is at the far right of the list during the insertion phase
         while True:
 
             self.diagnose()
+
+            # pick up the first item
+            self.swap_item()
 
             # continue moving to the right until it reaches the end
             while self.can_move_right():
@@ -173,8 +170,9 @@ class SortingRobot:
             # robot should now be in front of a blank spot, or the end
             self.diagnose()
 
-            # insert the item in the correct spot. Repeat with the next item
+            # insert the item in the correct spot. Move to the right to begin the cycle again.
             self.swap_item()
+            self.move_right_and_report()
 
             self.diagnose()
 
@@ -182,11 +180,11 @@ class SortingRobot:
             # 1. the robot is at the very end of the list
             # 2. the empty spot is also at the same spot
             # 3. the robot is during the insertion phase
-            if not self.can_move_right() and self.compare_item_and_report is None:
+            if not self.can_move_right():
                 break
             
-            # display sorted list
-            self.diagnose()
+        # display sorted list
+        self.diagnose()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
