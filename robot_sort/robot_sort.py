@@ -96,12 +96,12 @@ class SortingRobot:
     def move_left_and_report(self):        
         current_position = self._position
         self.move_left()
-        print(f"moved left from position {current_position} to{self._position}")
+        print(f"moved left from position {current_position} to {self._position}")
 
     def move_right_and_report(self):        
         current_position = self._position
         self.move_right()
-        print(f"moved right from position {current_position} to{self._position}")
+        print(f"moved right from position {current_position} to {self._position}")
 
     def compare_item_and_report(self):
         
@@ -125,14 +125,14 @@ class SortingRobot:
         print(f"now holding #{self._item} with #{self._list[self._position]} at position {self._position}")
     
     def diagnose(self):
-        print("============================")
+        print("========================================================")
         print("DIAGNOSIS:")
         print("  position is", self._position)
         print("  held item is", self._item)
         print("  light is", self._light)
         print("  time is", self._time)
         print("  list is", self._list)
-        print("============================")
+        print("========================================================")
 
     def sort(self):
         """
