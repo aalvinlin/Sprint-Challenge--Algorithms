@@ -142,47 +142,35 @@ class SortingRobot:
         # keep moving until the empty spot is at the far right of the list during the insertion phase
         while True:
 
-            self.diagnose()
-
             # pick up the first item
             self.swap_item()
 
             # continue moving to the right until it reaches the end
             while self.can_move_right():
-                self.move_right_and_report()
+                self.move_right()
 
                 # if the current item is less than the item in hand, swap the two
-                if self.compare_item_and_report() is not None and self.compare_item_and_report() >= 0:
+                if self.compare_item() is not None and self.compare_item() >= 0:
                     self.swap_item()
-
-            self.diagnose()
 
             # head back to the start position
             while self.can_move_left():
-                self.move_left_and_report()
+                self.move_left()
 
-            # insert the item in hand in the correct spot (it will be empty)
-            while self.can_move_right() and self.compare_item_and_report() is not None:
+            # move to the correct spot for insertion (it will be empty)
+            while self.can_move_right() and self.compare_item() is not None:
 
                 # if the curent spot is not empty, keep moving to the right:
-                self.move_right_and_report()
-            
-            # robot should now be in front of a blank spot, or the end
-            self.diagnose()
+                self.move_right()
 
             # insert the item in the correct spot. Move to the right to begin the cycle again.
             self.swap_item()
-            self.move_right_and_report()
-
-            self.diagnose()
+            self.move_right()
 
             # if the robot now is at the very end of the list, the sort is completed
             if not self.can_move_right():
                 break
             
-        # display sorted list
-        self.diagnose()
-
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
